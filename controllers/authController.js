@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 
 const generateToken = (id) =>
-  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '7d' });
+  jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 
 const loginAdmin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;

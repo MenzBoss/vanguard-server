@@ -22,7 +22,13 @@ const upload = multer({
 
 router.post('/', protect, upload.single('image'), (req, res) => {
   if (!req.file) return res.status(400).json({ message: 'No file uploaded' });
-  res.json({ url: `/uploads/${req.file.filename}` });
+
+  // Prefer configured public server URL in production; otherwise build from request host.
+  const publicServerUrl = process.env.PUBLIC_SERVER_URL?.trim().replace(/\/+$/, '');
+  const requestBaseUrl = `${req.protocol}://${req.get('host')}`.replace(/\/+$/, '');
+  const fileBaseUrl = publicServerUrl || requestBaseUrl;
+
+  res.json({ url: `${fileBaseUrl}/uploads/${req.file.filename}` });
 });
 
 module.exports = router;
