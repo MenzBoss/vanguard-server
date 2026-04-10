@@ -130,7 +130,7 @@ const transfers = [
 
 const videos = [
   { title: 'Match Highlights: Epic 3-2 Comeback Victory', youtubeId: 'FfW16nGbJRA', duration: '8:47', category: 'Match Highlights', featured: true },
-  { title: 'Best Goals of the Season | Top 10 Stunning Strikes', youtubeId: 'aEWNNbiEaltE', duration: '10:23', category: 'Match Highlights', featured: true },
+  { title: 'Best Goals of the Season | Top 10 Stunning Strikes', youtubeId: 'aEWNNbiEalt', duration: '10:23', category: 'Match Highlights', featured: true },
   { title: 'Training Session | Skills & Drills Behind the Scenes', youtubeId: 'VcB_vHPLmH4', duration: '5:12', category: 'Training', featured: false },
   { title: 'Tactical Analysis | Breaking Down the 4-3-3 Formation', youtubeId: 'D0CjyJz_5zs', duration: '7:18', category: 'Behind the Scenes', featured: false },
   { title: 'Youth Academy Highlights | Rising Stars Showcase', youtubeId: 'ThrS9IA5RjY', duration: '6:05', category: 'Youth Academy', featured: false },
