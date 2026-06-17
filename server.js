@@ -5,36 +5,11 @@ const path = require('path');
 const connectDB = require('./config/db');
 
 dotenv.config();
+connectDB();
 
 const app = express();
 
-const DEFAULT_ALLOWED_ORIGINS = [
-  'http://localhost:5173',
-  'http://127.0.0.1:5173',
-  'http://192.168.12.54:5173',
-  'https://fcvanguard.live',
-  'https://www.fcvanguard.live',
-];
-const allowedOrigins = (process.env.CORS_ORIGINS || DEFAULT_ALLOWED_ORIGINS.join(','))
-  .split(',')
-  .map((origin) => origin.trim())
-  .filter(Boolean);
-
-app.set('trust proxy', 1);
-
-app.use(cors({
-  origin: (origin, callback) => {
-    // Allow same-origin or non-browser clients (origin header missing)
-    if (!origin || allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
-    const corsError = new Error(`CORS blocked for origin: ${origin}`);
-    corsError.statusCode = 403;
-    return callback(corsError);
-  },
-  credentials: true,
-}));
+app.use(cors({ origin: ['http://localhost:5173', 'http://192.168.12.54:5173'], credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -61,15 +36,4 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 5000;
-
-const startServer = async () => {
-  try {
-    await connectDB();
-    app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
-  } catch (error) {
-    console.error(error.message);
-    process.exit(1);
-  }
-};
-
-startServer();
+app.listen(PORT, '0.0.0.0', () => console.log(`Server running on port ${PORT}`));
